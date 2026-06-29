@@ -1,0 +1,3 @@
+# build output symlinks (never commit these — they're rebuilt locally)
+result
+result-*
