@@ -73,7 +73,7 @@
     settings.user.email = "josevelasco06@hotmail.com";
   };
 
-  # bash — ported from your old ~/.bashrc, plus ble.sh (fish-like completion).
+  # bash — ported from your old ~/.bashrc.
   # NOTE: this generates ~/.bashrc, so it's now managed (edit here + switch),
   # unlike the live-editable dotfiles below.
   programs.bash = {
@@ -92,12 +92,6 @@
       PAGER = "less -R";
     };
 
-    # ble.sh must be sourced EARLY (top of .bashrc); it is attached at the very end.
-    bashrcExtra = ''
-      # ble.sh: fish-like autosuggestions, syntax highlighting, richer completion
-      [[ $- == *i* ]] && source ${pkgs.blesh}/share/blesh/ble.sh --noattach
-    '';
-
     initExtra = ''
       # --- prompt: working dir + current git branch ---
       git_branch() {
@@ -113,9 +107,6 @@
         local PAD; PAD=$(printf '%*s' "$pad" "")
         MANWIDTH=$width GROFF_NO_SGR= command man "$@" | sed "s/^/$PAD/" | less -R
       }
-
-      # attach ble.sh last so it wraps the final prompt
-      [[ ! ''${BLE_VERSION-} ]] || ble-attach
     '';
 
     # ~/.profile (sourced at login) — auto-start Hyprland on TTY1 (from old .bash_profile)
