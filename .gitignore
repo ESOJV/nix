@@ -1,3 +1,6 @@
 # build output symlinks (never commit these — they're rebuilt locally)
 result
 result-*
+
+# tmux runtime plugins (installed by TPM, not config)
+tmux/plugins/
