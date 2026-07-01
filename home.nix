@@ -52,6 +52,7 @@
     grim              # screenshots
     slurp             # region select
     wtype             # synthetic typing
+    socat             # used by monitor-hotplug.sh to read Hyprland's event socket
 
     # GPU-dependent — kept here for NixOS; needs nixGL to actually run on Arch
     moonlight-qt
