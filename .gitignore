@@ -3,4 +3,7 @@ result
 result-*
 
 # tmux runtime plugins (installed by TPM, not config)
-tmux/plugins/
+dotfiles/tmux/plugins/
+
+# stray Claude Code artifacts that land in config dirs
+.claude/

@@ -1,5 +1,5 @@
 {
-  description = "Jose's home-manager configuration";
+  description = "Jose's NixOS + home-manager configuration (monorepo, multi-host)";
 
   inputs = {
     # the package collection (unstable = newer packages)
@@ -17,10 +17,39 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      # "jose" is the name you switch to: home-manager switch
+      # ---------------------------------------------------------------------
+      # Standalone home-manager — used NOW on Arch (the transition period).
+      #   home-manager switch --flake ~/nix#jose
+      # ---------------------------------------------------------------------
       homeConfigurations.jose = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./home.nix ];
+        modules = [ ./home/home.nix ];
+      };
+
+      # ---------------------------------------------------------------------
+      # NixOS systems — one output per machine, keyed by hostname.
+      # Add more machines here later (e.g. nixosConfigurations.gaming-pc).
+      #   sudo nixos-rebuild switch --flake ~/nix#framework-13
+      #
+      # NOTE: framework-13 will NOT build until you run `nixos-generate-config`
+      # on the real machine to create hosts/framework-13/hardware-configuration.nix
+      # (the placeholder there is a stub). Until then, only the #jose output above
+      # is meant to be used.
+      # ---------------------------------------------------------------------
+      nixosConfigurations.framework-13 = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./hosts/framework-13/configuration.nix
+
+          # Pull home-manager into the system build so one `nixos-rebuild switch`
+          # configures the system AND jose's home together.
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.jose = import ./home/home.nix;
+          }
+        ];
       };
     };
 }

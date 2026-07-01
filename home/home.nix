@@ -165,18 +165,21 @@
   };
 
   # ---------------------------------------------------------------------------
-  # Dotfiles — live-editable, kept inside this repo, linked via out-of-store
-  # symlinks. Edit them directly (no `home-manager switch` needed per edit).
+  # Dotfiles — live-editable, kept inside this repo (~/nix/dotfiles), linked via
+  # out-of-store symlinks. Edit them directly (no `home-manager switch` per edit).
   # ---------------------------------------------------------------------------
   home.file.".config/nvim".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/nvim";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dotfiles/nvim";
 
   home.file.".config/kitty".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/kitty";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dotfiles/kitty";
 
   home.file.".config/hypr".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/hypr";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dotfiles/hypr";
 
   home.file.".config/tmux".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/home-manager/tmux";
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dotfiles/tmux";
+
+  home.file.".config/waybar".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix/dotfiles/waybar";
 }
