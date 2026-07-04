@@ -47,6 +47,9 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            # If a config file already exists where home-manager wants to write
+            # one, rename the old one to <name>.backup instead of aborting.
+            home-manager.backupFileExtension = "backup";
             home-manager.users.jose = import ./home/home.nix;
           }
         ];
