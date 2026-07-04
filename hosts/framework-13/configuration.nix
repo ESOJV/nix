@@ -13,6 +13,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Restrict permissions on the EFI partition so the systemd-boot random-seed
+  # file isn't world-readable (silences the "world accessible" security warning).
+  fileSystems."/boot".options = [ "fmask=0077" "dmask=0077" ];
+
   # --- Host / network ---
   networking.hostName = "framework-13";
   networking.networkmanager.enable = true;
