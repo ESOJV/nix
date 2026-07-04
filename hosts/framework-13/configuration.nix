@@ -41,6 +41,10 @@
     isNormalUser = true;
     description = "Jose";
     extraGroups = [ "wheel" "networkmanager" "video" "input" ];
+    # Temporary login password so the first boot works. CHANGE IT immediately
+    # after first login with `passwd`. (This file is public — never put a real
+    # password here.)
+    initialPassword = "changeme";
   };
 
   nixpkgs.config.allowUnfree = true;   # google-chrome, spotify, obsidian, steam, …
