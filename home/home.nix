@@ -32,6 +32,9 @@
     fd
     cowsay
 
+    # terminal emulator (config is the live-linked ./kitty below)
+    kitty
+
     # editor (binary from nix; your config is the live-linked ./nvim below)
     neovim
 
@@ -63,6 +66,15 @@
   ];
 
   fonts.fontconfig.enable = true;
+
+  # Cursor theme — installs a real cursor theme and sets XCURSOR_THEME/SIZE (and
+  # the GTK cursor) so Hyprland and apps stop using the default fallback cursor.
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Classic";
+    size = 24;
+  };
 
   # ---------------------------------------------------------------------------
   # Programs — configured declaratively via home-manager modules
@@ -135,6 +147,13 @@
       settings = {
         "browser.aboutConfig.showWarning" = false;
         "browser.startup.page" = 3;                                    # restore previous session
+
+        # Dark mode by default: force the built-in Dark UI theme and tell Firefox
+        # the system is dark (so pages that support prefers-color-scheme render
+        # dark; Dark Reader still handles sites that don't).
+        "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+        "ui.systemUsesDarkTheme" = 1;
+        "layout.css.prefers-color-scheme.content-override" = 0;        # 0 = dark
         "browser.newtabpage.activity-stream.showSponsored" = false;    # no sponsored tiles
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
       };
